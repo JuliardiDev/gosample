@@ -2,11 +2,12 @@ package main
 
 import (
 	"flag"
-	"github.com/google/gops/agent"
 	"log"
 	"net/http"
 
-	"github.com/tokopedia/gosample/hello"
+	"github.com/google/gops/agent"
+
+	"github.com/jodi-lumbantoruan/gosample/hello"
 	"gopkg.in/tokopedia/grace.v1"
 	"gopkg.in/tokopedia/logging.v1"
 )
@@ -29,6 +30,7 @@ func main() {
 	hwm := hello.NewHelloWorldModule()
 
 	http.HandleFunc("/hello", hwm.SayHelloWorld)
+	http.HandleFunc("/hello/name", hwm.HandleHelloNameWithParam)
 	go logging.StatsLog()
 
 	log.Fatal(grace.Serve(":9000", nil))
