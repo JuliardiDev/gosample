@@ -36,10 +36,10 @@ func ResponseError(w http.ResponseWriter, status int, messageError []string, pro
 }
 
 func ResponseOK(w http.ResponseWriter, data interface{}, messageStatus []string, processTime time.Time) {
-	status := http.StatusOK
-	w.WriteHeader(status)
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	status := http.StatusOK
+	w.WriteHeader(status)
 
 	r := Response{
 		Status:        http.StatusText(status),

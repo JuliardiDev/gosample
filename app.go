@@ -7,6 +7,7 @@ import (
 
 	"github.com/google/gops/agent"
 
+	"github.com/jodi-lumbantoruan/gosample/auth"
 	"github.com/jodi-lumbantoruan/gosample/hello"
 	"gopkg.in/tokopedia/grace.v1"
 	"gopkg.in/tokopedia/logging.v1"
@@ -31,7 +32,10 @@ func main() {
 
 	http.HandleFunc("/hello", hwm.SayHelloWorld)
 	http.HandleFunc("/hello/name", hwm.HandleHelloNameWithParam)
-	go logging.StatsLog()
+
+	http.HandleFunc("/hello/login", auth.OptionalAuthorize(hwm.HandleHelloOptionalLogin))
+	http.HandleFunc("/hello/mustlogin", auth.MustAuthorize(hwm.HandleHelloMustLogin))
+	// go logging.StatsLog()
 
 	log.Fatal(grace.Serve(":9000", nil))
 }
