@@ -10,7 +10,6 @@ import (
 
 	"github.com/jodi-lumbantoruan/gosample/auth"
 	"github.com/jodi-lumbantoruan/gosample/hello"
-	"github.com/jodi-lumbantoruan/gosample/shop"
 	"gopkg.in/tokopedia/grace.v1"
 	"gopkg.in/tokopedia/logging.v1"
 )
@@ -38,7 +37,9 @@ func main() {
 	hwm := hello.NewHelloWorldModule()
 	// reqDate := time.Now()
 
-	shop.GetShopSpeed(394674, 12)
+	ui, err := auth.GetUserInfo("am80AGDrRKuPIs_UMAKclA")
+	NicePrint(err)
+	NicePrint(ui)
 
 	http.HandleFunc("/hello", hwm.SayHelloWorld)
 	http.HandleFunc("/hello/name", hwm.HandleHelloNameWithParam)
