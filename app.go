@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"log"
 	"net/http"
@@ -9,9 +10,15 @@ import (
 
 	"github.com/jodi-lumbantoruan/gosample/auth"
 	"github.com/jodi-lumbantoruan/gosample/hello"
+	"github.com/jodi-lumbantoruan/gosample/shop"
 	"gopkg.in/tokopedia/grace.v1"
 	"gopkg.in/tokopedia/logging.v1"
 )
+
+func NicePrint(val interface{}) {
+	str, _ := json.MarshalIndent(val, "", "   ")
+	log.Println(string(str))
+}
 
 func main() {
 
@@ -29,6 +36,9 @@ func main() {
 	}
 
 	hwm := hello.NewHelloWorldModule()
+	// reqDate := time.Now()
+
+	shop.GetShopSpeed(394674, 12)
 
 	http.HandleFunc("/hello", hwm.SayHelloWorld)
 	http.HandleFunc("/hello/name", hwm.HandleHelloNameWithParam)
